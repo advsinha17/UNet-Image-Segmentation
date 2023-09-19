@@ -21,8 +21,8 @@ class DoubleConv(tf.keras.layers.Layer):
         # conv layer
         self.conv = tf.keras.layers.Conv2D(
                     n_filters, 
-                    kernel_size=(3, 3), 
-                    padding='same',
+                    kernel_size=(1, 1), 
+                    # padding='same',
                     kernel_initializer='he_normal'
                 )
         
@@ -138,9 +138,10 @@ class UpsamplingBlock(tf.keras.layers.Layer):
 
         # Transpose convolution layer
         self.transpose = tf.keras.layers.Conv2DTranspose(n_filters,
-                                                         kernel_size = (3, 3),
-                                                         strides = 2,
-                                                         padding = 'same')
+                                                         kernel_size = (1, 1),
+                                                        #  strides = 2,
+                                                        #  padding = 'same'
+                                                         )
         
         # Concatenation layer
         self.concatenate = tf.keras.layers.Concatenate(axis = 3)
@@ -203,15 +204,18 @@ class UNet(tf.keras.Model):
 
         # conv layer
         self.conv = tf.keras.layers.Conv2D(n_filters,
-                                           kernel_size = (3, 3),
-                                           padding = 'same',
+                                           kernel_size = (1, 1),
+                                        #    padding = 'same',
                                            kernel_initializer = 'he_normal')
         
         # BatchNorm layer
         self.bn = tf.keras.layers.BatchNormalization()
 
         # Output conv layer
-        self.output_conv = tf.keras.layers.Conv2D(n_classes, 1, padding = 'same')
+        self.output_conv = tf.keras.layers.Conv2D(n_classes, 
+                                                  1, 
+                                                #   padding = 'same'
+                                                  )
 
     def call(self, input_tensor, training = False):
 
